@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mini VALLE PaJues</title>
+    <meta http-equiv="Content-Type" content="utf8" />
+	<script src="../../rpg-alpha.min.js"></script>
+	<script src="Database/Animation.js"></script>
+
+	
+	<script>
+		var rpg;
+		function loadRpg() {
+			
+			rpg = new Rpg("canvas_rpg");
+			
+			// Adding Animation
+			rpg.setGraphicAnimation(192, 192);
+			rpg.addAnimation({
+				name: 'coin',
+				graphic: 'Heal5.png',
+				framesDefault: {y: 40, x: 40},
+				frames: [
+					[{pattern: 13, zoom: 50}],
+					[{pattern: 13, zoom: 80}, {pattern: 1, zoom: 20}],
+					[{pattern: 13, zoom: 100}, {pattern: 2, zoom: 120}],
+					[{pattern: 13, zoom: 120, opacity: 200}, {pattern: 3, zoom: 120}],
+					[{pattern: 13, zoom: 125, opacity: 170}, {pattern: 4, zoom: 120}],
+					[{pattern: 13, zoom: 130, opacity: 150}, {pattern: 5, zoom: 120}],
+					[{pattern: 13, zoom: 125, opacity: 170}, {pattern: 6, zoom: 120}],
+					[{pattern: 13, zoom: 125, opacity: 200}, {pattern: 7, zoom: 120}],
+					[{pattern: 13, zoom: 125, opacity: 200}, {pattern: 7, zoom: 120}],
+					[{pattern: 13, zoom: 125, opacity: 170}, {pattern: 8, zoom: 120}],
+					[{pattern: 13, zoom: 130, opacity: 150}, {pattern: 9, zoom: 120}],
+					[{pattern: 13, zoom: 125, opacity: 170}, {pattern: 10, zoom: 120}],
+					[{pattern: 13, zoom: 110, opacity: 200}, {pattern: 11, zoom: 120}],
+					[{pattern: 13, zoom: 80, opacity: 180}, {pattern: 12, zoom: 120}],
+					[{pattern: 13, zoom: 60, opacity: 180}],
+					[{pattern: 13, zoom: 50, opacity: 150}],
+					[{pattern: 13, zoom: 50, opacity: 100}],
+					[{pattern: 13, zoom: 50, opacity: 50}]
+				]
+			});
+			
+			// Adding animation from file "Database.js"
+			rpg.addAnimation(Database.animation['EM Exclamation']);
+			rpg.addAnimation(Database.animation['Darkness 1']);
+			rpg.addAnimation(Database.animation['Fang']);
+	
+			// Adding Actions
+			rpg.addAction('myattack', {
+				action: 'attack', // for Action Battle System
+				suffix_motion: ['_SWD_1'], // suffix of the filename
+				duration_motion: 1, // animation loop
+				block_movement: true,
+				wait_finish: 1, // frame
+				keypress: ['A'],
+			});
+			
+			rpg.addAction('attack_ennemy', {
+				action: 'attack',
+				suffix_motion: [''],
+				duration_motion: 1,
+				block_movement: true,
+				wait_finish: 1,
+			});
+			
+			//Prepare to dynamically add events on the map
+			rpg.prepareEventAjax("monster1");
+			rpg.prepareEventAjax("monster2");
+			
+			// Loading map
+			rpg.loadMap('Town', {
+				tileset: 'Town.png',
+				autotiles: ['Rue4.png'],
+				bgm: '060-Slow03.mp3',
+				events:  ['npc_town', 'npc_town2', 'npc_town3'],
+				transfert: [ // Teleport to another player's card
+					{x: 34, y: 14, map: 'Forest1', x_final: 0, y_final: 7} 
+				],
+				player:  {
+					x: 4, 
+					y: 18, 
+					direction: 'right',
+					filename: 'Hero.png', 
+					regX: 35, 
+					regY: 68, 
+					speed: 4,
+					actions: ['myattack'],
+				}
+			}, mapLoad);
+			
+			// Prepare the following maps
+			rpg.prepareMap('Forest1', {
+				tileset: 'Forest.png',
+				autotiles: ['sol11.png'],
+				bgm: '039-Dungeon05.mp3',
+				transfert: [
+					{x: 24, y: 29, map: 'Forest2', x_final: 4, y_final: 0},
+					{x: 0, y: 7, map: 'Town', x_final: 34, y_final: 14} 
+				],
+			}, function() {
+				createMonster('monster1', 8, 13);
+				createMonster('monster1', 23, 21);
+				createMonster('monster1', 19, 10);
+				createMonster('monster2', 25, 12);
+				mapLoad();
+			});
+			
+			rpg.prepareMap('Forest2', {
+				tileset: 'Forest.png',
+				transfert: [
+					{x: 4, y: 0, map: 'Forest1', x_final: 24, y_final: 29} 
+				],
+				autotiles: ['sol11.png']
+			}, function() {
+				createMonster('monster1', 16, 21);
+				createMonster('monster1', 18, 15);
+				createMonster('monster2', 9, 10);
+				mapLoad();
+			});
+			
+			function createMonster(name, x, y) {
+				// Change positions and add events on the map
+				rpg.setEventPrepared(name, {x: x, y: y});
+				rpg.addEventPrepared(name);
+			}
+
+		}
+		
+		function mapLoad() {
+			rpg.setActionBattle({
+				displayHpBar: true,
+				// When the player is detected
+				detection: {
+					_default: function(event) {
+						if (event.actionBattle.mode != 'passive') {
+							// View an animation of an event
+							rpg.animations['EM Exclamation'].setPositionEvent(event);
+							rpg.animations['EM Exclamation'].play();
+							// The event came to the player
+							event.moveStart();
+							event.approachPlayer();
+							// The mode of the event becomes "offensive"
+							rpg.setEventMode(event, 'offensive');
+							
+						}
+					}
+				},
+				// When the player is no longer detected
+				nodetection: {
+					_default: function(event) {
+						// The event will stop movement and incorporates current random displacement
+						event.moveStop();
+						event.moveStart();
+						event.moveRandom();
+					}
+				},
+				onChangeMode: function(event, mode) {
+					console.log(mode);
+				},
+				eventInvinsible: {
+					normal: function(event) {
+					
+					}
+				},
+				eventAttack: {
+					_default: function(event) {
+						// When the player is attacked
+						rpg.animations['Fang'].setPositionEvent(rpg.player);
+						rpg.animations['Fang'].play();
+						rpg.player.blink(30, 2);
+						event.action('attack_ennemy', function() {
+							rpg.setEventMode(event, 'passive');
+						});
+					}
+				
+				},
+				eventPassive: {
+					_default: function(event) {
+						event.moveRandom();
+						event.wait(25, false, function() {
+							event.detection = false;
+							rpg.setEventMode(event, 'normal');
+						});
+					}
+				},
+				eventAffected: {
+					_default: function(event) {
+						rpg.setEventMode(event, 'invinsible');
+						event.blink(30, 2, function() {
+							rpg.setEventMode(event, 'normal');
+						});
+						event.actionBattle.hp -= 100;
+					}
+				},
+				ennemyDead: {
+					drop_coin: function(event, item) {
+						event.createEventRelativeThis(item, {
+							move: false
+						});
+					
+					}				
+				},
+				// Cache events can be deposited on the ground
+				eventsCache: ["coin"]
+			});
+			
+			// Set the scrolling on the player
+			rpg.setScreenIn("Player");
+			
+		}
+	</script>
+
+ </head>
+  <body onLoad="loadRpg()">
+		<canvas id="canvas_rpg" width="640px" height="480px"></canvas> 
+  </body>
+</html>	

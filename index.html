@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Mini Valle PaoJou HTML5</title>
+	<meta charset="latin1" />
+	<meta name = "viewport" content = "width=device-width, maximum-scale = 1, minimum-scale=1" />
+	<link rel="stylesheet" type="text/css" href="css/default.css" media="all" />
+	<link rel="stylesheet" href="css/flexslider.css" type="text/css" />
+	<link rel="stylesheet" href="css/fixed-navigation.css" type="text/css" />
+	<link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css' />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script src="js/jquery.flexslider.js"></script>
+	<script src="js/default.js"></script>
+	<script type="text/javascript"
+	    src="https://maps.google.com/maps/api/js?sensor=false">
+	</script>
+	<script type="text/javascript">
+	  function initialize() {
+	    var latlng = new google.maps.LatLng(-34.397, 150.644);
+	    var myOptions = {
+	      zoom: 8,
+	      center: latlng,
+	      mapTypeId: google.maps.MapTypeId.ROADMAP
+	    };
+	    var map = new google.maps.Map(document.getElementById("map_canvas"),
+	        myOptions);
+	  }
+
+	</script>
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<script src="js/respond.min.js"></script>
+	<![endif]-->
+</head>
+<body onload="initialize()">
+	<div id="pagewidth">
+		<header id="header">
+			<div class="center">
+				<nav id="mainNav">
+					<ul>
+						<li class="active"><a href="#pagewidth"><span>Galeria</span></a></li>
+						<li><a href="#twoColumnLayout"><span>2 colupna</span></a></li>
+						<li><a href="#threeColumnLayout"><span>3 colupna</span></a></li>					</ul>
+				</nav>
+			</div>
+		</header>
+		<div id="content">
+			<section class="row">
+				<div class="center">
+					<h1>Mini Valle PauJou - Todo tipo de Dispositivos con HTML5</h1>
+					<strong class="subHeading">Trabaja Perfecto en Desktops, Tablets, and Mobile Phones</strong>
+					<div class="gallery">
+						<ul class="slides">
+							<li><img src="img/img-gallery.jpg" alt="image" /></li>
+							<li><img src="img/img-gallery2.jpg" alt="image" /></li>
+							<li><img src="img/img-gallery3.jpg" alt="image" /></li>
+						</ul>
+					</div>
+					<div class="buttons">
+					<a href="http://localhost/Pagina Web Juego Graficacion/Mini Valle PaJou/index.html" class="btn btnGreen"><span>JUEGALO SERAS EL CAMPEON</span></a>
+					</div>
+				</div>
+			</section>
+			<section id="twoColumnLayout" class="row grey">
+				<div class="center">
+					<h1>"Mini VALLE PaJues"</h1>
+					<strong class="subHeading">Es un pequeño juego creado para usuarios con HTML</strong>
+					<div class="columns">
+						<div class="half">
+							<div class="imgHolder alignLeft"><img src="img/content05.jpg" alt="image" /></div>
+							<p>1- El jugador pasara una serie de laberintos y deberá ganar a los malos para ello tendrá que resolver problemas 
+de trivia o preguntas de históricas para así pasar el nivel si se equivoca pierde una vida y la pregunta cambia
+ aleatoriamente y hasta que acierte o empezar de nuevo todo el nivel. Para luego pasar el nivel y demostrar los
+ conocimientos de historia que tiene el jugador.
+
+</p>
+							<p>2.-El segundo nivel será mucho más arriesgado porque el propósito del juego es encontrar un gran tesoro de antiguos
+ egipcios enterrados y mientras las preguntas se complican más y son más rápidas. Las trivias al tener tiempo más
+ rápido van a tener que jugar respondiendo mucho más rápido para ir descubriendo como el secreto de como llego el
+ tesoro de los egipcios al “Mini Valle PaJue” y ser el campeón de todo el juego.
+
+
+</p>
+							<p>El juego también tendrá en pantalla un puntaje por cada cosa que haga para al final ir sumando y ver quien de mis
+amigos que lo jueguen sabe más de historia y si lo haces bien te puedes coronar campeón.</p>
+							<p>El propósito del juego es que el jugador se pueda divertir con y a la vez aprenda el Juego contara con 2 niveles:p>
+						</div>
+						<div class="half">
+							<div class="imgHolder fullWidth"><img src="img/content02.jpg" alt="image" /></div>
+							<p>El propósito del juego es que el jugador se pueda divertir con y a la vez aprenda el Juego contara con 2 niveles:</p>
+
+						</div>
+					</div>
+				</div>
+			</section>
+			<section id="threeColumnLayout" class="row">
+				<div class="center">
+					<h1>AUTORES DEL PROYECTO</h1>
+					<strong class="subHeading">ESTE ES UN PROYECTO DE GRAFICACIÓN </strong>
+					<center>
+					<div class="columns">
+						<div class="oneThird">
+							<div class="imgHolder fullWidth"><img src="img/content03.jpg" alt="image" /></div>
+							<p>Bueno nosotros agradecemos a YouTube y a los tutoriales encontrados, fueron piezas fundamentales para el desarrollo del juego.</p>
+							<p><h3>CREADORES: JOSUE CARRANZA Y PAUL LANDÁZURI</h3></p>
+						</div>
+						</center>
+			</section>
+	      <footer id="footer">
+			<div class="center">
+				<span class="copy">Creado por <a href="https://www.facebook.com/KuLiMbo">Paul Landazuri</a></span>
+			</div>
+		</footer>
+	</div>
+</body>
+</html>

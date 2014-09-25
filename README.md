@@ -1,7 +1,7 @@
 HTML5JUEGOGRAFICACION
 =====================
 El nombre de juego es "Mini VALLE PaJues"
-Es un pequeño juego creado para usuarios con hml5
+Es un pequeño juego creado para usuarios con HTML5
 
 El propósito del juego es que el jugador se pueda divertir con y a la vez aprenda el Juego contara con 2 niveles:
 

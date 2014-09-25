@@ -1,0 +1,1 @@
+[		// Global	{		x: 28,		y: 9	},	// Pages	[			// Page 1		{			character_hue: '108-Civilian08.png',			trigger: 'action_button',			direction: 'right',			frequence: 2,			speed: 15,			type: 'random',			commands: [			]		}			]]

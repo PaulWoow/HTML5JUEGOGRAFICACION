@@ -1,0 +1,1 @@
+[		// Global	{		x: 10,		y: 7	},	// Pages	[			// Page 1		{			character_hue: '151-Animal01.png',			trigger: 'action_button',			direction: 'right',			frequence: 5,			speed: 10,			type: 'random',			commands: [			]		}			]]
